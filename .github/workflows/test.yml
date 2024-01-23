@@ -17,8 +17,12 @@ jobs:
         run: ./gradlew testDebugUnitTest
 
       - name: Android Test
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedCheck
         run: ./gradlew connectedDebugAndroidTest
 
-      - name: Android Test Report
+      - name: Android UnitTest Report
         uses: asadmansr/android-test-report-action@v1.2.0
         if: ${{ always() }}
