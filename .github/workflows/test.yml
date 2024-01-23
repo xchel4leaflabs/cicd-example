@@ -22,6 +22,7 @@ jobs:
           api-level: 29
           script: ./gradlew connectedCheck
         #run: ./gradlew connectedDebugAndroidTest
+        if: ${{ always() }}
 
       - name: Android UnitTest Report
         uses: asadmansr/android-test-report-action@v1.2.0
