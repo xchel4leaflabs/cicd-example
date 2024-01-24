@@ -2,7 +2,7 @@ name: App build (for test)
 
 on:
   push:
-    branches: ["master"]
+    branches: ["main"]
 # new release for testing
 jobs:
   package:
