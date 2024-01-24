@@ -25,3 +25,5 @@ jobs:
         run: ./gradlew assemble
       - name: Root directory
         run: echo ${{ github.workspace }}
+      - name: Root directory
+        run: ls
