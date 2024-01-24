@@ -48,9 +48,7 @@ jobs:
           path: app/build/outputs/apk/release/app-release.apk
 
       - name: Go to apk folder
-        run: cd app/build/outputs/apk/release
-      - name: Echo files
-        run: ls
+        run: ls app/build/outputs/apk/release
 
       - name: Clean files
         if: ${{ always() }}
