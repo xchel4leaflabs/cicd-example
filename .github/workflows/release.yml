@@ -4,7 +4,7 @@ on:
   push:
     tags:
       - release-**
-      - branches: [ "main" ]
+    branches: [ "main" ]
 
 jobs:
   build-apk:
