@@ -39,7 +39,7 @@ jobs:
         run: ./gradlew build
 
       - name: Build release apk
-        run: ./gradlew assembleRelease --stacktrace
+        run: ./gradlew app:assembleRelease --stacktrace
 
       - name: Upload apk
         uses: actions/upload-artifact@master
