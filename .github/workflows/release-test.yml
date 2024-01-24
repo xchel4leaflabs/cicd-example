@@ -17,10 +17,10 @@ jobs:
           KEYSTORE_PROPERTIES_BASE64: ${{ secrets.KEYSTORE_PROPERTIES }}
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
-          KEYSTORE_PROPERTIES_PATH=/home/runner/work/movies/android/keystore.properties
+          KEYSTORE_PROPERTIES_PATH=/keystore.properties
           echo -n "$KEYSTORE_PROPERTIES_BASE64" | base64 -d > $KEYSTORE_PROPERTIES_PATH
 
-          KEYSTORE_PATH=/home/runner/work/movies/android/app/KeyStore
+          KEYSTORE_PATH=/keystore_deploy
           echo -n "$KEYSTORE_BASE64" | base64 -d > $KEYSTORE_PATH
 
           ls $RUNNER_TEMP
@@ -36,5 +36,11 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: test.apk
+          name: app-debug.apk
           path: 'app/build/outputs/apk/debug/app-debug.apk'
+
+      - name: Clean files
+        if: ${{ always() }}
+        run: |
+          rm /keystore.properties
+          rm /keystore_deploy
