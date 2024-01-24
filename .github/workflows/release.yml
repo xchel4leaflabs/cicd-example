@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - release-**
-    branches: [ "main" ]
 
 jobs:
   build-apk:
@@ -45,8 +44,8 @@ jobs:
       - name: Upload apk
         uses: actions/upload-artifact@master
         with:
-          name: app-release
-          path: app/build/outputs/bundle/release/app-release.apk
+          name: apk-release
+          path: app/build/outputs/bundle/release/apk-release.apk
 
       - name: Clean files
         if: ${{ always() }}
