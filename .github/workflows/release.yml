@@ -16,10 +16,10 @@ jobs:
           KEYSTORE_PROPERTIES_BASE64: ${{ secrets.KEYSTORE_PROPERTIES }}
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
-          KEYSTORE_PROPERTIES_PATH=/keystore.properties
+          KEYSTORE_PROPERTIES_PATH=${{ github.workspace }}/keystore.properties
           echo -n "$KEYSTORE_PROPERTIES_BASE64" | base64 -d > $KEYSTORE_PROPERTIES_PATH
           
-          KEYSTORE_PATH=/keystore_deploy
+          KEYSTORE_PATH=${{ github.workspace }}/keystore_deploy
           echo -n "$KEYSTORE_BASE64" | base64 -d > $KEYSTORE_PATH
           
           ls $RUNNER_TEMP
@@ -82,5 +82,5 @@ jobs:
       - name: Clean files
         if: ${{ always() }}
         run: |
-          rm /keystore.properties
-          rm /keystore_deploy
+          rm ${{ github.workspace }}/keystore.properties
+          rm ${{ github.workspace }}/keystore_deploy
