@@ -6,11 +6,13 @@ on:
       - release-**
 
 jobs:
-  init:
+  build-apk:
+    #needs: [init]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
       - name: Install keystore and keystore.properties
         env:
           KEYSTORE_PROPERTIES_BASE64: ${{ secrets.KEYSTORE_PROPERTIES }}
@@ -36,10 +38,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-  build-apk:
-    needs: [init]
-    runs-on: ubuntu-latest
-    steps:
       - name: Build release apk
         run: ./gradle assembleRelease --stacktrace
 
@@ -57,9 +55,37 @@ jobs:
           
 
   build-aab:
-    needs: [init]
+    #needs: [init]
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install keystore and keystore.properties
+        env:
+          KEYSTORE_PROPERTIES_BASE64: ${{ secrets.KEYSTORE_PROPERTIES }}
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          KEYSTORE_PROPERTIES_PATH=${{ github.workspace }}/keystore.properties
+          echo -n "$KEYSTORE_PROPERTIES_BASE64" | base64 -d > $KEYSTORE_PROPERTIES_PATH
+          
+          KEYSTORE_PATH=${{ github.workspace }}/keystore_deploy
+          echo -n "$KEYSTORE_BASE64" | base64 -d > $KEYSTORE_PATH
+          
+          ls $RUNNER_TEMP
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
+
       - name: Build release aab
         run: ./gradlew bundleRelease --stacktrace
 
