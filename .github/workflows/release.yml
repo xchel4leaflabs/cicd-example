@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build release apk
-        run: ./gradle2 assembleRelease --stacktrace
+        run: ./gradle assembleRelease --stacktrace
 
       - name: Upload apk
         uses: actions/upload-artifact@master
@@ -52,8 +52,8 @@ jobs:
       - name: Clean files
         if: ${{ always() }}
         run: |
-          rm /keystore.properties
-          rm /keystore_deploy
+          rm ${{ github.workspace }}/keystore.properties
+          rm ${{ github.workspace }}/keystore_deploy
           
 
   build-aab:
