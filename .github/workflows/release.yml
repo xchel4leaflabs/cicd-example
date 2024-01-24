@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - release-**
-    branches: [ "main" ]
 # release signed for deploy
 jobs:
   package:
@@ -24,9 +23,13 @@ jobs:
         with:
           java-version: '17'
 
-      - name: Build debug APK
+      - name: Build release aab # todo
         run: ./gradlew assembleDebug --stacktrace
 
+      - name: Build release APK # todo
+        run: ./gradlew assembleDebug --stacktrace
+
+      # todo code for download aab and apk signed
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
