@@ -3,8 +3,8 @@ name: App build
 on:
   push:
     tags:
-      - release.**
-
+      - release-**
+# release signed for deploy
 jobs:
   package:
     name: Generate APK signed

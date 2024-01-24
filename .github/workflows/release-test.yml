@@ -3,7 +3,7 @@ name: App build (for test)
 on:
   push:
     branches: ["master"]
-
+# new release for testing
 jobs:
   package:
     name: Generate APK for test
