@@ -1,4 +1,4 @@
-name: Upload apk
+name: Drive
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 # new release for testing
 jobs:
   package:
-    name: Upload APK for test
+    name: Upload (drive) APK for test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -39,12 +39,20 @@ jobs:
           name: app-debug.apk
           path: 'app/build/outputs/apk/debug/app-debug.apk'
 
-      - name: Upload apk to Google Drive
-        uses: Jodebu/upload-to-drive@master
+      #- name: Upload apk to Google Drive
+      #  uses: Jodebu/upload-to-drive@master
+      #  with:
+      #    target: 'app/build/outputs/apk/debug/app-debug.apk'
+      #    credentials: ${{ secrets.DRIVE_CREDENTIALS }}
+      #    folder: '1c26HP_iwA6iQIQrevPUXc9h2q7NoqMNr'
+      - name: Upload to gdrive
+        uses: adityak74/google-drive-upload-git-action@main
         with:
-          target: 'app/build/outputs/apk/debug/app-debug.apk'
           credentials: ${{ secrets.DRIVE_CREDENTIALS }}
-          folder: '1c26HP_iwA6iQIQrevPUXc9h2q7NoqMNr'
+          filename: "app/build/outputs/apk/debug/app-debug.apk"
+          folderId: '1c26HP_iwA6iQIQrevPUXc9h2q7NoqMNr'
+          #name: "documentation.zip" # optional string
+          overwrite: "false" # optional boolean
 
       - name: Clean files
         if: ${{ always() }}
