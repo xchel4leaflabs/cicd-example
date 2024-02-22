@@ -39,7 +39,7 @@ jobs:
           name: app-debug.apk
           path: 'app/build/outputs/apk/debug/app-debug.apk'
 
-      - name: Push generated webpage to another repository
+      - name: github-action-push-to-another-repository
         uses: nkoppel/push-files-to-another-repository@v1.1.2
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
