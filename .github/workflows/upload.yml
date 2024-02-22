@@ -39,36 +39,17 @@ jobs:
           name: app-debug.apk
           path: 'app/build/outputs/apk/debug/app-debug.apk'
 
-      - name: test
-        run: |
-          cd 'app'
-          echo "*app"
-          ls
-          cd 'build'
-          echo "*build"
-          ls
-          cd 'outputs'
-          echo "*outputs"
-          ls
-          cd 'apk'
-          echo "*apk"
-          ls
-          cd 'debug'
-          echo "*debug"
-          ls
-          
-
-      - name: github-action-push-to-another-repository
-        uses: nkoppel/push-files-to-another-repository@v1.1.2
+      - name: Pushes test file
+        uses: dmnemec/copy_file_to_another_repo_action@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-files: 'app'#/build/outputs/apk/debug/app-debug.apk'
-          destination-username: 'xchel4leaflabs'
-          destination-repository: 'TestApks'
-          # destination-directory: 'projects/my-project'
-          commit-email: 'xchel.co@gmail.com'
-          destination-branch: 'main'
+          source_file: 'app/build/outputs/apk/debug/app-debug.apk'
+          destination_repo: 'xchel4leaflabs/TestApks'
+          destination_folder: '/sandbox/'
+          user_email: 'xchel@4leaflabs.com'
+          user_name: 'xchel4leaflabs'
+          commit_message: 'test'
 
       - name: Clean files
         if: ${{ always() }}
