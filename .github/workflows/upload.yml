@@ -40,7 +40,18 @@ jobs:
           path: 'app/build/outputs/apk/debug/app-debug.apk'
 
       - name: test
-        run: ls
+        run: |
+          cd 'app'
+          ls
+          cd 'build'
+          ls
+          cd 'outputs'
+          ls
+          cd 'apk'
+          ls
+          cd 'debug'
+          ls
+          
 
       - name: github-action-push-to-another-repository
         uses: nkoppel/push-files-to-another-repository@v1.1.2
