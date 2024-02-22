@@ -44,11 +44,12 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-files: 'app/build/outputs/apk/debug/app-debug.apk'
+          source-files: 'app/build/outputs/apk/debug/'
           destination-username: 'xchel4leaflabs'
           destination-repository: 'TestApks'
           # destination-directory: 'projects/my-project'
           commit-email: 'xchel.co@gmail.com'
+          destination-branch: 'main'
 
       - name: Clean files
         if: ${{ always() }}
