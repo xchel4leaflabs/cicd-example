@@ -42,19 +42,19 @@ jobs:
       - name: test
         run: |
           cd 'app'
-          echo "app"
+          echo "*app"
           ls
           cd 'build'
-          echo "build"
+          echo "*build"
           ls
           cd 'outputs'
-          echo "outputs"
+          echo "*outputs"
           ls
           cd 'apk'
-          echo "apk"
+          echo "*apk"
           ls
           cd 'debug'
-          echo "debug"
+          echo "*debug"
           ls
           
 
@@ -62,8 +62,10 @@ jobs:
         uses: nkoppel/push-files-to-another-repository@v1.1.2
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        run: |
+          ls
         with:
-          source-files: 'app/build/outputs/apk/debug/'
+          source-files: 'app/build/outputs/apk/debug/app-debug.apk'
           destination-username: 'xchel4leaflabs'
           destination-repository: 'TestApks'
           # destination-directory: 'projects/my-project'
