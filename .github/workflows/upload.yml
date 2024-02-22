@@ -42,14 +42,19 @@ jobs:
       - name: test
         run: |
           cd 'app'
+          echo "app"
           ls
           cd 'build'
+          echo "build"
           ls
           cd 'outputs'
+          echo "outputs"
           ls
           cd 'apk'
+          echo "apk"
           ls
           cd 'debug'
+          echo "debug"
           ls
           
 
