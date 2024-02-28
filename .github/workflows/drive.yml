@@ -45,11 +45,17 @@ jobs:
       #    target: 'app/build/outputs/apk/debug/app-debug.apk'
       #    credentials: ${{ secrets.DRIVE_CREDENTIALS }}
       #    folder: '1c26HP_iwA6iQIQrevPUXc9h2q7NoqMNr'
+
+      - name: global variables
+        run: |
+          cd app/build/outputs/apk/debug/
+          echo "FILE_NAME = ${basename *.apk .apk}" >> $GITHUB_ENV
+
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.DRIVE_CREDENTIALS }}
-          filename: "app/build/outputs/apk/debug/app-debug.apk"
+          filename: "app/build/outputs/apk/debug/$FILE_NAME.apk"
           folderId: '1c26HP_iwA6iQIQrevPUXc9h2q7NoqMNr'
           #name: "documentation.zip" # optional string
           overwrite: "false" # optional boolean
