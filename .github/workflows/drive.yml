@@ -55,10 +55,14 @@ jobs:
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.DRIVE_CREDENTIALS }}
-          filename: "app/build/outputs/apk/debug/$FILE_NAME.apk"
+          filename: "app/build/outputs/apk/debug/app-debug.apk"
           folderId: '1c26HP_iwA6iQIQrevPUXc9h2q7NoqMNr'
           #name: "documentation.zip" # optional string
           overwrite: "false" # optional boolean
+
+      - name: test global variables
+        run: |
+          echo "$FILE_NAME"
 
       - name: Clean files
         if: ${{ always() }}
