@@ -2,9 +2,9 @@ name: Build project
 
 on:
   push:
-    branches: [ "cicd", "main" ]
+    branches: [ "_cicd", "_main" ]
   pull_request:
-    branches: [ "cicd", "main" ]
+    branches: [ "_cicd", "_main" ]
 
 jobs:
   build:
