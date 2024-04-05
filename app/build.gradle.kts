@@ -43,6 +43,7 @@ android {
             //signingConfig = signingConfigs.getByName("release")
         }
     }
+    flavorDimensions += "default"
     productFlavors {
         create("flavorFirst") {
             resValue( "string", "app_name", "flavorFirst")
