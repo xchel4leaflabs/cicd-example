@@ -43,6 +43,16 @@ android {
             //signingConfig = signingConfigs.getByName("release")
         }
     }
+    productFlavors {
+        create("flavorFirst") {
+            resValue( "string", "app_name", "flavorFirst")
+            applicationIdSuffix = ".flavor1"
+        }
+        create("flavorSecond") {
+            resValue( "string", "app_name", "flavorSecond")
+            applicationIdSuffix = ".flavor2"
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

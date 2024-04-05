@@ -2,7 +2,7 @@ name: Drive
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "_main" ]
 # new release for testing
 jobs:
   package:
@@ -46,30 +46,30 @@ jobs:
       #    credentials: ${{ secrets.DRIVE_CREDENTIALS }}
       #    folder: '1c26HP_iwA6iQIQrevPUXc9h2q7NoqMNr'
 
-      - name: global variables
-        env:
-          MY_FILE_NAME: ""
-        run: |
-          cd app/build/outputs/apk/debug/
-          basename *.apk .apk > MY_FILE_NAME 
-          echo "${MY_FILE_NAME}"
-          echo "FILE_NAME = ${MY_FILE_NAME}" >> $GITHUB_ENV
-
-      - name: test global variables
-        run: |
-          echo "$FILE_NAME"
-
-      - name: Upload to gdrive
-        uses: adityak74/google-drive-upload-git-action@main
-        with:
-          credentials: ${{ secrets.DRIVE_CREDENTIALS }}
-          filename: "app/build/outputs/apk/debug/app-debug.apk"
-          folderId: '1c26HP_iwA6iQIQrevPUXc9h2q7NoqMNr'
-          #name: "documentation.zip" # optional string
-          overwrite: "false" # optional boolean
-
-      - name: Clean files
-        if: ${{ always() }}
-        run: |
-          rm ${{ github.workspace }}/keystore.properties
-          rm ${{ github.workspace }}/keystore_deploy
+      #- name: global variables
+      #  env:
+      #    MY_FILE_NAME: ""
+      #  run: |
+      #    cd app/build/outputs/apk/debug/
+      #    basename *.apk .apk > MY_FILE_NAME
+      #    echo "${MY_FILE_NAME}"
+      #    echo "FILE_NAME = ${MY_FILE_NAME}" >> $GITHUB_ENV
+#
+      #- name: test global variables
+      #  run: |
+      #    echo "$FILE_NAME"
+#
+      #- name: Upload to gdrive
+      #  uses: adityak74/google-drive-upload-git-action@main
+      #  with:
+      #    credentials: ${{ secrets.DRIVE_CREDENTIALS }}
+      #    filename: "app/build/outputs/apk/debug/app-debug.apk"
+      #    folderId: '1c26HP_iwA6iQIQrevPUXc9h2q7NoqMNr'
+      #    #name: "documentation.zip" # optional string
+      #    overwrite: "false" # optional boolean
+#
+      #- name: Clean files
+      #  if: ${{ always() }}
+      #  run: |
+      #    rm ${{ github.workspace }}/keystore.properties
+      #    rm ${{ github.workspace }}/keystore_deploy

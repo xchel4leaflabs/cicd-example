@@ -2,7 +2,7 @@ name: Upload apk
 
 on:
   push:
-    branches: [ "_main" ]
+    branches: [ "main" ]
 # new release for testing
 jobs:
   package:
@@ -31,25 +31,25 @@ jobs:
           java-version: '17'
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug --stacktrace
+        run: ./gradlew assembleFlavorFirstRelease --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
           name: app-debug.apk
-          path: 'app/build/outputs/apk/debug/app-debug.apk'
+          path: 'app/build/outputs/apk/release/*.apk'
 
-      - name: Pushes test file
-        uses: dmnemec/copy_file_to_another_repo_action@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          source_file: 'app/build/outputs/apk/debug/app-debug.apk'
-          destination_repo: 'xchel4leaflabs/TestApks'
-          destination_folder: '/sandbox/'
-          user_email: 'xchel@4leaflabs.com'
-          user_name: 'xchel4leaflabs'
-          commit_message: 'test'
+      #- name: Pushes test file
+      #  uses: dmnemec/copy_file_to_another_repo_action@main
+      #  env:
+      #    API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      #  with:
+      #    source_file: 'app/build/outputs/apk/debug/app-debug.apk'
+      #    destination_repo: 'xchel4leaflabs/TestApks'
+      #    destination_folder: '/sandbox/'
+      #    user_email: 'xchel@4leaflabs.com'
+      #    user_name: 'xchel4leaflabs'
+      #    commit_message: 'test'
 
       - name: Clean files
         if: ${{ always() }}
