@@ -55,10 +55,10 @@ jobs:
         uses: shallwefootball/s3-upload-action@master
         id: S3
         with:
-        aws_key_id: ${{secrets.AWS_KEY_ID}}
-        aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-        aws_bucket: autoupload-testing
-        source_dir: app/build/outputs/apk/flavorFirst/release/*.apk
+          aws_key_id: ${{secrets.AWS_KEY_ID}}
+          aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: autoupload-testing
+          source_dir: app/build/outputs/apk/flavorFirst/release/*.apk
 
       - name: Clean files
         if: ${{ always() }}
