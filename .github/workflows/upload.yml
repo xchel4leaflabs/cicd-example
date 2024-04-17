@@ -51,14 +51,14 @@ jobs:
       #    user_name: 'xchel4leaflabs'
       #    commit_message: 'test'
 
-      - name: Remove File
-        uses: JesseTG/rm@v1.0.3
-        with:
-          path: 'app/build/outputs/apk/flavorFirst/release/*.json'
+      #- name: Remove File
+      #  uses: JesseTG/rm@v1.0.3
+      #  with:
+      #    path: 'app/build/outputs/apk/flavorFirst/release/*.json'
 
-      #- name: Clean files
-      #  run: |
-      #    rm ${{ github.workspace }}/app/build/outputs/apk/flavorFirst/release/*.json
+      - name: Clean files
+        run:
+          rm ${{ github.workspace }}/app/build/outputs/apk/flavorFirst/release/*.json
 
       - name: Upload to S3
         uses: shallwefootball/s3-upload-action@master
