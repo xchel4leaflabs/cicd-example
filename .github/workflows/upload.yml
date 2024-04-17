@@ -51,24 +51,19 @@ jobs:
       #    user_name: 'xchel4leaflabs'
       #    commit_message: 'test'
 
-      #- name: Upload to S3
-      #  uses: shallwefootball/s3-upload-action@master
-      #  id: m_S3
-      #  with:
-      #    aws_key_id: ${{secrets.AWS_KEY_ID}}
-      #    aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-      #    aws_bucket: autoupload-testing
-      #    source_dir: 'app/build/outputs/apk/flavorFirst/release'
-
-      - name: Upload artifact
-        uses: zoispag/action-s3-upload-artifact@v1
-        id: s3
+      - name: Remove File
+        uses: JesseTG/rm@v1.0.3
         with:
-          access_key_id: ${{ secrets.AWS_KEY_ID }}
-          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          bucket: autoupload-testing
-          key: my-artifact
-          path: 'app/build/outputs/apk/flavorFirst/release'
+          path: 'app/build/outputs/apk/flavorFirst/release/.json'
+
+      - name: Upload to S3
+        uses: shallwefootball/s3-upload-action@master
+        id: m_S3
+        with:
+          aws_key_id: ${{secrets.AWS_KEY_ID}}
+          aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: autoupload-testing
+          source_dir: 'app/build/outputs/apk/flavorFirst/release'
 
       - name: Clean files
         if: ${{ always() }}
