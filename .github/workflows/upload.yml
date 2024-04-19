@@ -62,12 +62,12 @@ jobs:
 
       - name: Upload to S3
         uses: shallwefootball/s3-upload-action@master
-        id: m_S3
+        id: S3
         with:
           aws_key_id: ${{secrets.AWS_KEY_ID}}
           aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: autoupload-testing
-          destination_dir: testing/
+          aws_bucket: autoupload-testing/apks
+          #destination_dir: 4leaflabs-orderspoon/apk/pos/
           source_dir: 'app/build/outputs/apk/flavorFirst/release'
 
       - name: Clean files
