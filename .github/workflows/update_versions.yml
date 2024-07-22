@@ -86,9 +86,9 @@ jobs:
         run: |
           aws s3 cp s3://autoupload-testing/versions.json versions.json
 
-      - name: Check files
-        run:
-          ls app/build/outputs/apk/flavorFirst/release
+#      - name: Check files
+#        run:
+#          ls app/build/outputs/apk/flavorFirst/release
 
       - name: Generate file name and date
         id: generate-info
