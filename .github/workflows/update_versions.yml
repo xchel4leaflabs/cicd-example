@@ -86,14 +86,9 @@ jobs:
         run: |
           aws s3 cp s3://autoupload-testing/versions.json versions.json
 
-#      - name: Check files
-#        run:
-#          ls app/build/outputs/apk/flavorFirst/release
-
       - name: Generate file name and date
         id: generate-info
         run: |
-#          echo "file_name=$(date +"%Y%m%d%H%M%S")-x" >> $GITHUB_ENV
           echo "current_date=$(date +"%Y%m%d")" >> $GITHUB_ENV
           apk_file_name=$(basename app/build/outputs/apk/flavorFirst/release/*.apk)
           echo "apk_file_name=$apk_file_name" >> $GITHUB_ENV
