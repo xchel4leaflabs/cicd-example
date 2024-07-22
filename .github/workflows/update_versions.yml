@@ -27,8 +27,10 @@ jobs:
       - name: Generate file name and date
         id: generate-info
         run: |
-          echo "file_name=$(date +"%Y%m%d%H%M%S")-file.txt" >> $GITHUB_ENV
+          echo "file_name=$(date +"%Y%m%d%H%M%S")-x" >> $GITHUB_ENV
           echo "current_date=$(date +"%Y%m%d")" >> $GITHUB_ENV
+#          apk_file_name=$(basename app/build/outputs/apk/release/app-release.apk)
+#          echo "apk_file_name=$apk_file_name" >> $GITHUB_ENV
 
       - name: Modify JSON file
         run: |
