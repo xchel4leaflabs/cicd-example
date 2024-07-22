@@ -1,0 +1,48 @@
+name: Update JSON on Commit to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: Download JSON file from S3
+        run: |
+          aws s3 cp s3://autoupload-testing/versions.json versions.json
+
+      - name: Generate file name and date
+        id: generate-info
+        run: |
+          echo "file_name=$(date +"%Y%m%d%H%M%S")-file.txt" >> $GITHUB_ENV
+          echo "current_date=$(date +"%Y%m%d")" >> $GITHUB_ENV
+
+      - name: Modify JSON file
+        run: |
+          file_name=${{ env.file_name }}
+          current_date=${{ env.current_date }}
+          jq --arg version "$file_name" --arg date "$current_date" '
+            .kd.version = $version |
+            .kd.lastUpdate = ($date | tonumber) |
+            .orderAlert.version = $version |
+            .orderAlert.lastUpdate = ($date | tonumber) |
+            .register.version = $version |
+            .register.lastUpdate = ($date | tonumber)
+          ' versions.json > versions_modified.json
+
+      - name: Upload modified JSON file to S3
+        run: |
+          aws s3 cp versions_modified.json s3://autoupload-testing/versions.json
