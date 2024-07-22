@@ -36,11 +36,12 @@ jobs:
           current_date=${{ env.current_date }}
           jq --arg version "$file_name" --arg date "$current_date" '
             .kd.version = $version |
-            .kd.lastUpdate = ($date | tonumber) |
-            .orderAlert.version = $version |
-            .orderAlert.lastUpdate = ($date | tonumber) |
-            .register.version = $version |
-            .register.lastUpdate = ($date | tonumber)
+            .kd.lastUpdate = ($date | tonumber)
+#                |
+#             .orderAlert.version = $version |
+#             .orderAlert.lastUpdate = ($date | tonumber) |
+#             .register.version = $version |
+#             .register.lastUpdate = ($date | tonumber)
           ' versions.json > versions_modified.json
 
       - name: Upload modified JSON file to S3
